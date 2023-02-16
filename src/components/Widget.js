@@ -3,8 +3,6 @@
 import {
   React, useState, useEffect, useRef
 } from 'react';
-import ReactDOM from 'react-dom';
-
 import Select from 'react-select';
 
 const OPTIONS_API = 'https://www.atakann.com/demos/psikolog-backend/custom-widget-list';
@@ -275,21 +273,15 @@ const Widget = () => {
 
   return (
     <>
-
-      {
-        ReactDOM.createPortal(  //Return here
-          <label style={{
-            marginBottom: '10px',
-            display: 'block',
-            textAlign: 'left',
-            fontWeight: 500
-          }}
-          >
-            Danışan
-          </label>,
-          document.getElementById("id_24")
-        )
-      }
+      <label style={{
+        marginBottom: '10px',
+        display: 'block',
+        textAlign: 'left',
+        fontWeight: 500
+      }}
+      >
+        Danışan
+      </label>
       <Select
         options={options}
         value={selectedValue}
