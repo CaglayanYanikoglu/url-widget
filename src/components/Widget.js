@@ -235,11 +235,12 @@ const Widget = () => {
     console.log('on ready JFCustomWidget getwidgetsettings url:', JFCustomWidget.getWidgetSettings('URL'));
     // JFCustomWidget.subscribe('ready', details => {
       console.log('ready subscribe');
-      /*  const details = {
+       const details = {
          background: 'lightblue'
-       }; */
+       };
       const settings = JFCustomWidget.getWidgetSettings();
       const u = JFCustomWidget.getWidgetSetting('URL');
+      console.log('urlll: ', url);
       // const u = OPTIONS_API;
       setUrl(u);
       setWidgetSettings(settings);
