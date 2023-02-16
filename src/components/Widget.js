@@ -273,7 +273,15 @@ const Widget = () => {
 
   return (
     <>
-      <label class="form-label form-label-top form-label-auto">Danışan</label>
+      <label style={{
+        marginBottom: '10px',
+        display: 'block',
+        textAlign: 'left',
+        fontWeight: 500
+      }}
+      >
+        Danışan
+      </label>
       <Select
         options={options}
         value={selectedValue}
