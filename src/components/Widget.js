@@ -16,7 +16,10 @@ const Widget = () => {
     height: '100%'
   });
   const [options, setOptions] = useState([]);
-  const [selectedValue, _setSelectedValue] = useState('');
+  const [selectedValue, _setSelectedValue] = useState({
+    value: '',
+    label: ''
+  });
   const [hasLoaded, setHasLoaded] = useState(false);
 
   const widgetRef = useRef(widgetSettings);
@@ -267,7 +270,7 @@ const Widget = () => {
 
   useEffect(() => {
     if (hasLoaded === true) {
-      JFCustomWidget.sendData({ value: selectedValue.value });
+      JFCustomWidget.sendData({ value: selectedValue?.value });
     }
   }, [selectedValue]);
 
@@ -285,6 +288,7 @@ const Widget = () => {
       <Select
         options={options}
         onChange={handleOnChange}
+        value={selectedValue}
       />
     </>
   );
