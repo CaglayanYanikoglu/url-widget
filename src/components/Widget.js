@@ -284,7 +284,6 @@ const Widget = () => {
       </label>
       <Select
         options={options}
-        value={selectedValue}
         onChange={handleOnChange}
       />
     </>
