@@ -194,6 +194,7 @@ const Widget = () => {
     JFCustomWidget.subscribe('submit', () => {
       var value = selectedRef.current;
       let validation = false;
+      onReady();
       if (value !== 'Please Select') {
         validation = true;
       } else {
@@ -232,12 +233,11 @@ const Widget = () => {
   const onReady = () => {
     // FIXME: open it
     console.log('on ready2 JFCustomWidget:', JFCustomWidget);
-    console.log('on ready JFCustomWidget getwidgetsettings url:', JFCustomWidget.getWidgetSettings('URL'));
-    // JFCustomWidget.subscribe('ready', details => {
+    JFCustomWidget.subscribe('ready', details => {
       console.log('ready subscribe');
-       const details = {
-         background: 'lightblue'
-       };
+/*       const details = {
+        background: 'lightblue'
+      }; */
       const settings = JFCustomWidget.getWidgetSettings();
       const u = JFCustomWidget.getWidgetSetting('URL');
       console.log('urlll: ', url);
@@ -249,7 +249,7 @@ const Widget = () => {
         width: details.width || '%100',
         height: details.height || '%100'
       });
-    // });
+    });
   };
 
   useEffect(() => {
@@ -259,9 +259,8 @@ const Widget = () => {
     }
 
     document.getElementById('JFCustomWidgetScript').addEventListener('load', () => {
-      onReady();
-      onWidgetPopulate();
       onWidgetSubmit();
+      onWidgetPopulate();
     });
   }, []);
 
