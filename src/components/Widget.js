@@ -273,6 +273,7 @@ const Widget = () => {
 
   return (
     <>
+      <label class="form-label form-label-top form-label-auto">Danışan</label>
       <Select
         options={options}
         value={selectedValue}
