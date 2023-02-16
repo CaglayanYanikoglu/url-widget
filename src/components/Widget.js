@@ -275,7 +275,9 @@ const Widget = () => {
     <>
       <Select
         options={options}
+        value={selectedValue}
         onChange={handleOnChange}
+        menuPortalTarget={document.body}
       />
     </>
   );
