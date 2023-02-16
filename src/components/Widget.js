@@ -231,21 +231,22 @@ const Widget = () => {
 
   const onReady = () => {
     // FIXME: open it
-    // JFCustomWidget.subscribe('ready', details => {
-    const details = {
-      background: 'lightblue'
-    };
-    const settings = JFCustomWidget.getWidgetSettings();
-    // const u = JFCustomWidget.getWidgetSetting('URL');
-    const u = OPTIONS_API;
-    setUrl(u);
-    setWidgetSettings(settings);
-    setSelectStyle({
-      backgroundColor: details.background,
-      width: details.width || '%100',
-      height: details.height || '%100'
+    JFCustomWidget.subscribe('ready', details => {
+      console.log('ready subscribe');
+      /*  const details = {
+         background: 'lightblue'
+       }; */
+      const settings = JFCustomWidget.getWidgetSettings();
+      const u = JFCustomWidget.getWidgetSetting('URL');
+      // const u = OPTIONS_API;
+      setUrl(u);
+      setWidgetSettings(settings);
+      setSelectStyle({
+        backgroundColor: details.background,
+        width: details.width || '%100',
+        height: details.height || '%100'
+      });
     });
-    // });
   };
 
   useEffect(() => {
