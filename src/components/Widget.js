@@ -3,6 +3,8 @@
 import {
   React, useState, useEffect, useRef
 } from 'react';
+import ReactDOM from 'react-dom';
+
 import Select from 'react-select';
 
 const OPTIONS_API = 'https://www.atakann.com/demos/psikolog-backend/custom-widget-list';
