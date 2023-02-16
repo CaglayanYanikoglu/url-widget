@@ -5,6 +5,8 @@ import {
 } from 'react';
 import Select from 'react-select';
 
+const OPTIONS_API = 'https://www.atakann.com/demos/psikolog-backend/custom-widget-list';
+
 const Widget = () => {
   const [widgetSettings, _setWidgetSettings] = useState({});
   const [url, _setUrl] = useState('');
@@ -13,9 +15,10 @@ const Widget = () => {
     width: '100%',
     height: '100%'
   });
-  const [options, setOptions] = useState(['Please Select']);
+  const [options, setOptions] = useState([]);
   const [selectedValue, _setSelectedValue] = useState('');
   const [hasLoaded, setHasLoaded] = useState(false);
+
   const widgetRef = useRef(widgetSettings);
   const selectedRef = useRef(selectedValue);
   const urlRef = useRef(url);
@@ -59,12 +62,14 @@ const Widget = () => {
   };
 
   const fetchUrl = uri => {
-    console.log('fetch url', uri);
-    setOptions(['Please Wait...']);
+    setOptions([{
+      value: '',
+      label: 'Please Wait...'
+    }]);
     renderOptions();
     return fetch(uri).then(res => res.json())
       .then(data => {
-        return data.content;
+        return data;
       });
   };
 
@@ -77,9 +82,8 @@ const Widget = () => {
     return opt;
   };
 
-  const handleOnChange = e => {
-    const { value } = e.target;
-    setSelectedValue(value);
+  const handleOnChange = values => {
+    setSelectedValue(values);
   };
 
   const handleOptionArray = data => {
@@ -149,9 +153,7 @@ const Widget = () => {
   };
 
   const handleUri = () => {
-    console.log('handleUri');
-    if (true) {
-      console.log('url ref current', urlRef.current);
+    if (!isUrlParameterized(urlRef.current) && urlRef.current !== '') {
       fetchUrl(urlRef.current).then(data => {
         var selectionArray = [];
         if (!isUrlParameterized(urlRef.current)) {
@@ -161,6 +163,9 @@ const Widget = () => {
         }
         setOptions(selectionArray);
       });
+    } else {
+      const selectionArray = [];
+      setOptions(selectionArray);
     }
   };
 
@@ -224,17 +229,22 @@ const Widget = () => {
   };
 
   const onReady = () => {
-    JFCustomWidget.subscribe('ready', details => {
-      const settings = JFCustomWidget.getWidgetSettings();
-      const u = JFCustomWidget.getWidgetSetting('URL');
-      setUrl(u);
-      setWidgetSettings(settings);
-      setSelectStyle({
-        backgroundColor: details.background,
-        width: details.width || '%100',
-        height: details.height || '%100'
-      });
+    // FIXME: open it
+    // JFCustomWidget.subscribe('ready', details => {
+    const details = {
+      background: 'lightblue'
+    };
+    const settings = JFCustomWidget.getWidgetSettings();
+    // const u = JFCustomWidget.getWidgetSetting('URL');
+    const u = OPTIONS_API;
+    setUrl(u);
+    setWidgetSettings(settings);
+    setSelectStyle({
+      backgroundColor: details.background,
+      width: details.width || '%100',
+      height: details.height || '%100'
     });
+    // });
   };
 
   useEffect(() => {
@@ -250,7 +260,6 @@ const Widget = () => {
   }, []);
 
   useEffect(() => {
-    console.log('useefect url', url);
     if (url !== undefined) {
       handleUri();
     }
@@ -264,32 +273,12 @@ const Widget = () => {
 
   return (
     <>
-      <div id='widget'>
-        <Select
-          options={options}
-          onChange={handleOnChange}
-        />
-      </div>
-      {/* <div id="widget" className="flex-row">
-      <div>
-        <span id="labelText">{widgetSettings.QuestionLabel}</span>
-      </div>
-      <div>
-        <select
-          style={selectStyle}
-          onChange={e => handleOnChange(e)}
-          value={selectedValue ?? widgetSettings.Default}
-          id="url-dropdown-select"
-          className="hover:outline-blue-200 hover:outline-opacity-20 radius-md
-            border outline-4 outline-transparent border-gray-75 hover:border-blue-600 hover:border"
-        >
-          {renderOptions()}
-        </select>
-      </div>
-      <div className="mt-1">
-        <small className='color-gray-200'>{widgetSettings.SubLabel}</small>
-      </div>
-    </div> */}
+      <Select
+        options={options}
+        value={selectedValue}
+        onChange={handleOnChange}
+        menuPortalTarget={document.body}
+      />
     </>
   );
 };
