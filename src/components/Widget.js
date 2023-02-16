@@ -231,6 +231,7 @@ const Widget = () => {
 
   const onReady = () => {
     // FIXME: open it
+    console.log('on ready JFCustomWidget:', JFCustomWidget);
     JFCustomWidget.subscribe('ready', details => {
       console.log('ready subscribe');
       /*  const details = {
@@ -250,6 +251,7 @@ const Widget = () => {
   };
 
   useEffect(() => {
+    console.log('use effect test');
     if (!scriptAlreadyExists()) {
       bindScript();
     }
@@ -278,6 +280,7 @@ const Widget = () => {
       <Select
         options={options}
         onChange={handleOnChange}
+        menuPortalTarget={document.body}
       />
     </>
   );
