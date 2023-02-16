@@ -191,12 +191,9 @@ const Widget = () => {
   };
 
   const onWidgetSubmit = () => {
-    console.log('onWidgetSubmit');
     JFCustomWidget.subscribe('submit', () => {
-      console.log('subscribe submit');
       var value = selectedRef.current;
       let validation = false;
-      onReady();
       if (value !== 'Please Select') {
         validation = true;
       } else {
@@ -235,23 +232,26 @@ const Widget = () => {
   const onReady = () => {
     // FIXME: open it
     console.log('on ready2 JFCustomWidget:', JFCustomWidget);
-    JFCustomWidget.subscribe('ready', details => {
-      console.log('ready subscribe');
-/*       const details = {
-        background: 'lightblue'
-      }; */
-      const settings = JFCustomWidget.getWidgetSettings();
-      const u = JFCustomWidget.getWidgetSetting('URL');
-      console.log('urlll: ', url);
-      // const u = OPTIONS_API;
-      setUrl(u);
-      setWidgetSettings(settings);
-      setSelectStyle({
-        backgroundColor: details.background,
-        width: details.width || '%100',
-        height: details.height || '%100'
-      });
-    });
+    console.log('on ready JFCustomWidget getwidgetsettings url:', JFCustomWidget.getWidgetSettings('URL'));
+    // JFCustomWidget.subscribe('ready', details => {
+      setTimeout(() => {
+        console.log('ready subscribe');
+        const details = {
+          background: 'lightblue'
+        };
+        const settings = JFCustomWidget.getWidgetSettings();
+        const u = JFCustomWidget.getWidgetSetting('URL');
+        console.log('urlll: ', url);
+        // const u = OPTIONS_API;
+        setUrl(u);
+        setWidgetSettings(settings);
+        setSelectStyle({
+          backgroundColor: details.background,
+          width: details.width || '%100',
+          height: details.height || '%100'
+        });
+      }, 3000);
+        // });
   };
 
   useEffect(() => {
@@ -261,8 +261,8 @@ const Widget = () => {
     }
 
     document.getElementById('JFCustomWidgetScript').addEventListener('load', () => {
-      console.log('JFCustomWidgetScript load');
       onWidgetSubmit();
+      onReady();
       onWidgetPopulate();
     });
   }, []);
