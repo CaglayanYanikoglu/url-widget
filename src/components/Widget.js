@@ -3,9 +3,6 @@
 import {
   React, useState, useEffect, useRef
 } from 'react';
-import Select from 'react-select';
-
-const OPTIONS_API = 'https://www.atakann.com/demos/psikolog-backend/custom-widget-list';
 
 const Widget = () => {
   const [widgetSettings, _setWidgetSettings] = useState({});
@@ -15,10 +12,9 @@ const Widget = () => {
     width: '100%',
     height: '100%'
   });
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState(['Please Select']);
   const [selectedValue, _setSelectedValue] = useState('');
   const [hasLoaded, setHasLoaded] = useState(false);
-
   const widgetRef = useRef(widgetSettings);
   const selectedRef = useRef(selectedValue);
   const urlRef = useRef(url);
@@ -62,15 +58,11 @@ const Widget = () => {
   };
 
   const fetchUrl = uri => {
-    console.log('fetch');
-    setOptions([{
-      value: '',
-      label: 'Please Wait...'
-    }]);
+    setOptions(['Please Wait...']);
     renderOptions();
     return fetch(uri).then(res => res.json())
       .then(data => {
-        return data;
+        return data.content;
       });
   };
 
@@ -83,8 +75,9 @@ const Widget = () => {
     return opt;
   };
 
-  const handleOnChange = values => {
-    setSelectedValue(values);
+  const handleOnChange = e => {
+    const { value } = e.target;
+    setSelectedValue(value);
   };
 
   const handleOptionArray = data => {
@@ -165,7 +158,7 @@ const Widget = () => {
         setOptions(selectionArray);
       });
     } else {
-      const selectionArray = [];
+      const selectionArray = ['Please Select'];
       setOptions(selectionArray);
     }
   };
@@ -186,12 +179,7 @@ const Widget = () => {
     script.id = 'JFCustomWidgetScript';
     script.defer = true;
     script.async = true;
-    script.onload = () => {
-      setHasLoaded(true);
-      onWidgetSubmit();
-      onReady();
-      onWidgetPopulate();
-    }
+    script.onload = () => setHasLoaded(true);
     document.body.appendChild(script);
   };
 
@@ -235,15 +223,9 @@ const Widget = () => {
   };
 
   const onReady = () => {
-    // FIXME: open it
-    console.log('on ready2 JFCustomWidget:', JFCustomWidget);
-    console.log('on ready JFCustomWidget getwidgetsettings url:', JFCustomWidget.getWidgetSettings('URL'));
     JFCustomWidget.subscribe('ready', details => {
-      console.log('ready subscribe');
       const settings = JFCustomWidget.getWidgetSettings();
       const u = JFCustomWidget.getWidgetSetting('URL');
-      console.log('urlll: ', url);
-      // const u = OPTIONS_API;
       setUrl(u);
       setWidgetSettings(settings);
       setSelectStyle({
@@ -251,15 +233,54 @@ const Widget = () => {
         width: details.width || '%100',
         height: details.height || '%100'
       });
+      // if (widgetSettings.defaultValue !== '') {
+      // setSelectedValue(widgetSettings.Default);
+      // }
     });
+
+    // onWidgetSubmit();
+    // onWidgetPopulate();
   };
 
   useEffect(() => {
-    console.log('use effect test');
     if (!scriptAlreadyExists()) {
       bindScript();
     }
+
+    document.getElementById('JFCustomWidgetScript').addEventListener('load', () => {
+      onReady();
+      onWidgetPopulate();
+      onWidgetSubmit();
+    });
   }, []);
+
+  /* useEffect(() => {
+    if (hasLoaded === true) {
+      console.log('onReady triggered !', widgetSettings);
+      onReady();
+    }
+  }, [widgetSettings, selectStyle, hasLoaded]); */
+
+  /* useEffect(() => {
+    if (isReady === true) {
+      onWidgetPopulate();
+      onWidgetSubmit();
+    }
+  }); */
+
+  /* useEffect(() => {
+    if (hasLoaded === true) {
+      console.log('subbmit triggered !', widgetSettings);
+      onWidgetSubmit();
+    }
+  }, [isReady]);
+
+  useEffect(() => {
+    console.log('populate', widgetSettings);
+    if (hasLoaded === true) {
+      onWidgetPopulate();
+    }
+  }, [isReady]); */
 
   useEffect(() => {
     if (url !== undefined) {
@@ -274,13 +295,26 @@ const Widget = () => {
   }, [selectedValue]);
 
   return (
-    <>
-      <Select
-        options={options}
-        onChange={handleOnChange}
-        menuPortalTarget={document.body}
-      />
-    </>
+    <div id="widget" className="flex-row">
+      <div>
+        <span id="labelText">{widgetSettings.QuestionLabel}</span>
+      </div>
+      <div>
+        <select
+          style={selectStyle}
+          onChange={e => handleOnChange(e)}
+          value={selectedValue ?? widgetSettings.Default}
+          id="url-dropdown-select"
+          className="hover:outline-blue-200 hover:outline-opacity-20 radius-md
+            border outline-4 outline-transparent border-gray-75 hover:border-blue-600 hover:border"
+        >
+          {renderOptions()}
+        </select>
+      </div>
+      <div className="mt-1">
+        <small className='color-gray-200'>{widgetSettings.SubLabel}</small>
+      </div>
+    </div>
   );
 };
 
