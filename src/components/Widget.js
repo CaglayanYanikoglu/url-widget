@@ -191,7 +191,9 @@ const Widget = () => {
   };
 
   const onWidgetSubmit = () => {
+    console.log('onWidgetSubmit');
     JFCustomWidget.subscribe('submit', () => {
+      console.log('subscribe submit');
       var value = selectedRef.current;
       let validation = false;
       onReady();
@@ -259,6 +261,7 @@ const Widget = () => {
     }
 
     document.getElementById('JFCustomWidgetScript').addEventListener('load', () => {
+      console.log('JFCustomWidgetScript load');
       onWidgetSubmit();
       onWidgetPopulate();
     });
