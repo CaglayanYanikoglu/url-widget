@@ -270,6 +270,7 @@ const Widget = () => {
 
   useEffect(() => {
     if (hasLoaded === true) {
+      console.log('selectedValue', selectedValue);
       JFCustomWidget.sendData({ value: selectedValue?.value });
     }
   }, [selectedValue]);
