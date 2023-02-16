@@ -150,7 +150,8 @@ const Widget = () => {
 
   const handleUri = () => {
     console.log('handleUri');
-    if (!isUrlParameterized(urlRef.current) && urlRef.current !== '') {
+    if (true) {
+      console.log('url ref current', urlRef.current);
       fetchUrl(urlRef.current).then(data => {
         var selectionArray = [];
         if (!isUrlParameterized(urlRef.current)) {
@@ -160,9 +161,6 @@ const Widget = () => {
         }
         setOptions(selectionArray);
       });
-    } else {
-      const selectionArray = ['Please Select'];
-      setOptions(selectionArray);
     }
   };
 
