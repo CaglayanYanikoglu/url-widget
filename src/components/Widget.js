@@ -3,6 +3,7 @@
 import {
   React, useState, useEffect, useRef
 } from 'react';
+import Select from 'react-select';
 
 const Widget = () => {
   const [widgetSettings, _setWidgetSettings] = useState({});
@@ -233,13 +234,7 @@ const Widget = () => {
         width: details.width || '%100',
         height: details.height || '%100'
       });
-      // if (widgetSettings.defaultValue !== '') {
-      // setSelectedValue(widgetSettings.Default);
-      // }
     });
-
-    // onWidgetSubmit();
-    // onWidgetPopulate();
   };
 
   useEffect(() => {
@@ -254,34 +249,6 @@ const Widget = () => {
     });
   }, []);
 
-  /* useEffect(() => {
-    if (hasLoaded === true) {
-      console.log('onReady triggered !', widgetSettings);
-      onReady();
-    }
-  }, [widgetSettings, selectStyle, hasLoaded]); */
-
-  /* useEffect(() => {
-    if (isReady === true) {
-      onWidgetPopulate();
-      onWidgetSubmit();
-    }
-  }); */
-
-  /* useEffect(() => {
-    if (hasLoaded === true) {
-      console.log('subbmit triggered !', widgetSettings);
-      onWidgetSubmit();
-    }
-  }, [isReady]);
-
-  useEffect(() => {
-    console.log('populate', widgetSettings);
-    if (hasLoaded === true) {
-      onWidgetPopulate();
-    }
-  }, [isReady]); */
-
   useEffect(() => {
     if (url !== undefined) {
       handleUri();
@@ -295,7 +262,14 @@ const Widget = () => {
   }, [selectedValue]);
 
   return (
-    <div id="widget" className="flex-row">
+    <>
+      <div id='widget'>
+        <Select
+          options={options}
+          onChange={handleOnChange}
+        />
+      </div>
+      {/* <div id="widget" className="flex-row">
       <div>
         <span id="labelText">{widgetSettings.QuestionLabel}</span>
       </div>
@@ -314,7 +288,8 @@ const Widget = () => {
       <div className="mt-1">
         <small className='color-gray-200'>{widgetSettings.SubLabel}</small>
       </div>
-    </div>
+    </div> */}
+    </>
   );
 };
 
