@@ -62,6 +62,7 @@ const Widget = () => {
   };
 
   const fetchUrl = uri => {
+    console.log('fetch');
     setOptions([{
       value: '',
       label: 'Please Wait...'
@@ -230,13 +231,13 @@ const Widget = () => {
 
   const onReady = () => {
     // FIXME: open it
-    JFCustomWidget.subscribe('ready', details => {
-    /* const details = {
+    // JFCustomWidget.subscribe('ready', details => {
+    const details = {
       background: 'lightblue'
-    }; */
+    };
     const settings = JFCustomWidget.getWidgetSettings();
-    const u = JFCustomWidget.getWidgetSetting('URL');
-    // const u = OPTIONS_API;
+    // const u = JFCustomWidget.getWidgetSetting('URL');
+    const u = OPTIONS_API;
     setUrl(u);
     setWidgetSettings(settings);
     setSelectStyle({
@@ -244,7 +245,7 @@ const Widget = () => {
       width: details.width || '%100',
       height: details.height || '%100'
     });
-    });
+    // });
   };
 
   useEffect(() => {
