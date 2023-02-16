@@ -186,7 +186,12 @@ const Widget = () => {
     script.id = 'JFCustomWidgetScript';
     script.defer = true;
     script.async = true;
-    script.onload = () => setHasLoaded(true);
+    script.onload = () => {
+      setHasLoaded(true);
+      onWidgetSubmit();
+      onReady();
+      onWidgetPopulate();
+    }
     document.body.appendChild(script);
   };
 
@@ -259,12 +264,6 @@ const Widget = () => {
     if (!scriptAlreadyExists()) {
       bindScript();
     }
-
-    document.getElementById('JFCustomWidgetScript').addEventListener('load', () => {
-      onWidgetSubmit();
-      onReady();
-      onWidgetPopulate();
-    });
   }, []);
 
   useEffect(() => {
