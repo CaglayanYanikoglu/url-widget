@@ -5,7 +5,7 @@ import {
 } from 'react';
 import Select from 'react-select';
 
-const OPTIONS_API = 'https://www.atakann.com/demos/psikolog-backend/custom-widget-list';
+const OPTIONS_API = 'https://atakann.com/demos/psikolog-backend/client-options';
 
 const Widget = () => {
   const [widgetSettings, _setWidgetSettings] = useState({});
