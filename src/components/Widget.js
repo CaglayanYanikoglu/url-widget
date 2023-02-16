@@ -233,7 +233,7 @@ const Widget = () => {
     // FIXME: open it
     console.log('on ready2 JFCustomWidget:', JFCustomWidget);
     console.log('on ready JFCustomWidget getwidgetsettings url:', JFCustomWidget.getWidgetSettings('URL'));
-    JFCustomWidget.subscribe('ready', details => {
+    // JFCustomWidget.subscribe('ready', details => {
       console.log('ready subscribe');
       /*  const details = {
          background: 'lightblue'
@@ -248,7 +248,7 @@ const Widget = () => {
         width: details.width || '%100',
         height: details.height || '%100'
       });
-    });
+    // });
   };
 
   useEffect(() => {
