@@ -149,6 +149,7 @@ const Widget = () => {
   };
 
   const handleUri = () => {
+    console.log('handleUri');
     if (!isUrlParameterized(urlRef.current) && urlRef.current !== '') {
       fetchUrl(urlRef.current).then(data => {
         var selectionArray = [];
@@ -251,6 +252,7 @@ const Widget = () => {
   }, []);
 
   useEffect(() => {
+    console.log('useefect url', url);
     if (url !== undefined) {
       handleUri();
     }
