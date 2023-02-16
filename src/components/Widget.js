@@ -59,6 +59,7 @@ const Widget = () => {
   };
 
   const fetchUrl = uri => {
+    console.log('fetch url', uri);
     setOptions(['Please Wait...']);
     renderOptions();
     return fetch(uri).then(res => res.json())
