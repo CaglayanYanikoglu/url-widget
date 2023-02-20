@@ -3,7 +3,9 @@
 import {
   React, useState, useEffect, useRef
 } from 'react';
-import Select from 'react-select';
+import SelectSearch from 'react-select-search';
+import 'react-select-search/style.css'
+
 
 const Widget = () => {
   const [widgetSettings, _setWidgetSettings] = useState({});
@@ -224,7 +226,7 @@ const Widget = () => {
   };
 
   const onReady = () => {
-    console.log('on ready cag');
+    console.log('on ready');
     JFCustomWidget.subscribe('ready', details => {
       console.log('subscribe ready');
       const settings = JFCustomWidget.getWidgetSettings();
@@ -271,7 +273,17 @@ const Widget = () => {
     }
   }, [selectedValue]);
 
-  console.log('widgeetetts');
+  const options2 = [
+    {name: 'Swedish', value: 'sv'},
+    {name: 'English', value: 'en'},
+    {
+        type: 'group',
+        name: 'Group name',
+        items: [
+            {name: 'Spanish', value: 'es'},
+        ]
+    },
+];
 
   return (
     <div id="widget" className="flex-row">
@@ -279,14 +291,8 @@ const Widget = () => {
         <span id="labelText">{widgetSettings.QuestionLabel}</span>
       </div>
       <div>
-        <Select
-          options={[]}
-          onChange={() => {}}
-          name="agent"
-          placeholder="Agent Name"
-          menuPortalTarget={document.body}
-          styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
-        />
+      <SelectSearch options={options} value="sv" name="language" placeholder="Choose your language" />
+
       </div>
       <div className="mt-1">
         <small className='color-gray-200'>{widgetSettings.SubLabel}</small>
