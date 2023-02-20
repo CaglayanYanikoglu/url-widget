@@ -290,7 +290,7 @@ const Widget = () => {
           className="hover:outline-blue-200 hover:outline-opacity-20 radius-md
       border outline-4 outline-transparent border-gray-75 hover:border-blue-600 hover:border"
         >
-          {renderOptions()}
+          
         </select>
       </div>
       <div className="mt-1">
