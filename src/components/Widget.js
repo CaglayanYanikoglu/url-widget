@@ -291,7 +291,7 @@ const Widget = () => {
         <span id="labelText">{widgetSettings.QuestionLabel}</span>
       </div>
       <div>
-      <SelectSearch options={options} value="sv" name="language" placeholder="Choose your language" />
+      <SelectSearch search={true} options={options2} value="sv" name="language" placeholder="Choose your language" />
 
       </div>
       <div className="mt-1">
