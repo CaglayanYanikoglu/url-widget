@@ -291,6 +291,10 @@ const Widget = () => {
           onMenuClose={() => {
             JFCustomWidget.requestFrameResize({ height: 40 })
           }}
+          styles={{
+            menu: base => ({ ...base, border: '1px solid blue', textAlign: 'left' }),
+            option: base => ({ ...base, borderTop: '1px solid #ddd' })
+          }}
         />
       </div>
       <div className="mt-1">
