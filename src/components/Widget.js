@@ -224,6 +224,7 @@ const Widget = () => {
   };
 
   const onReady = () => {
+    console.log('on ready');
     JFCustomWidget.subscribe('ready', details => {
       console.log('subscribe ready');
       const settings = JFCustomWidget.getWidgetSettings();
@@ -250,6 +251,7 @@ const Widget = () => {
     }
 
     document.getElementById('JFCustomWidgetScript').addEventListener('load', () => {
+      console.log('load');
       onReady();
       onWidgetPopulate();
       onWidgetSubmit();
