@@ -275,7 +275,15 @@ const Widget = () => {
 
   const options2 = [
     {name: 'Swedish', value: 'sv'},
-    {name: 'English', value: 'en'}
+    {name: 'English', value: 'en'},
+    {name: 'Swedish', value: 'sv2'},
+    {name: 'English', value: 'en3'},
+    {name: 'Swedish', value: 'sv5'},
+    {name: 'English', value: 'e6n'},
+    {name: 'Swedish', value: 'sv7'},
+    {name: 'English', value: 'e8n'},
+    {name: 'English', value: 'e812n'},
+    {name: 'English', value: 'e8n5'},
 ];
 
   return (
