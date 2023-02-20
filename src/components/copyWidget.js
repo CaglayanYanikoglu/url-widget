@@ -292,6 +292,12 @@ const Widget = () => {
         options={options}
         onChange={handleOnChange}
         value={selectedValue}
+        onMenuOpen={() => {
+          JFCustomWidget.requestFrameResize({height: 500})
+        }}
+        onMenuClose={() => {
+          JFCustomWidget.requestFrameResize({height: 80})
+        }}
       />
     </>
   );
