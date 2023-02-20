@@ -277,12 +277,12 @@ const Widget = () => {
         <span id="labelText">{widgetSettings.QuestionLabel}</span>
       </div>
       <div>
-        <Select
+        {/* <Select
           options={[]}
           onChange={handleOnChange}
           value={selectedValue}
-        />
-        {/* <select
+        /> */}
+        <select
           style={selectStyle}
           onChange={e => handleOnChange(e)}
           value={selectedValue ?? widgetSettings.Default}
@@ -291,7 +291,7 @@ const Widget = () => {
       border outline-4 outline-transparent border-gray-75 hover:border-blue-600 hover:border"
         >
           {renderOptions()}
-        </select> */}
+        </select>
       </div>
       <div className="mt-1">
         <small className='color-gray-200'>{widgetSettings.SubLabel}</small>
