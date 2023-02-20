@@ -3,8 +3,7 @@
 import {
   React, useState, useEffect, useRef
 } from 'react';
-
-console.log('widget works');
+import Select from 'react-select';
 
 const Widget = () => {
   const [widgetSettings, _setWidgetSettings] = useState({});
@@ -224,8 +223,6 @@ const Widget = () => {
     });
   };
 
-  console.log('CAGLAYAN TEST');
-
   const onReady = () => {
     JFCustomWidget.subscribe('ready', details => {
       console.log('subscribe ready');
@@ -278,16 +275,11 @@ const Widget = () => {
         <span id="labelText">{widgetSettings.QuestionLabel}</span>
       </div>
       <div>
-        <select
-          style={selectStyle}
-          onChange={e => handleOnChange(e)}
-          value={selectedValue ?? widgetSettings.Default}
-          id="url-dropdown-select"
-          className="hover:outline-blue-200 hover:outline-opacity-20 radius-md
-      border outline-4 outline-transparent border-gray-75 hover:border-blue-600 hover:border"
-        >
-          {renderOptions()}
-        </select>
+        <Select
+          options={options}
+          onChange={handleOnChange}
+          value={selectedValue}
+        />
       </div>
       <div className="mt-1">
         <small className='color-gray-200'>{widgetSettings.SubLabel}</small>
