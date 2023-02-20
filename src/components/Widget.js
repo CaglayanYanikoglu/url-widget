@@ -3,9 +3,9 @@
 import {
   React, useState, useEffect, useRef
 } from 'react';
-import SelectSearch from 'react-select-search';
-import 'react-select-search/style.css'
+import Select from 'react-select';
 
+const OPTIONS_API = 'https://atakann.com/demos/psikolog-backend/client-options';
 
 const Widget = () => {
   const [widgetSettings, _setWidgetSettings] = useState({});
@@ -15,9 +15,13 @@ const Widget = () => {
     width: '100%',
     height: '100%'
   });
-  const [options, setOptions] = useState(['Please Select']);
-  const [selectedValue, _setSelectedValue] = useState('');
+  const [options, setOptions] = useState([]);
+  const [selectedValue, _setSelectedValue] = useState({
+    value: '',
+    label: ''
+  });
   const [hasLoaded, setHasLoaded] = useState(false);
+
   const widgetRef = useRef(widgetSettings);
   const selectedRef = useRef(selectedValue);
   const urlRef = useRef(url);
@@ -26,6 +30,8 @@ const Widget = () => {
     urlRef.current = data;
     _setUrl(data);
   };
+
+  console.log('copyWidget');
 
   const setSelectedValue = data => {
     selectedRef.current = data;
@@ -61,11 +67,14 @@ const Widget = () => {
   };
 
   const fetchUrl = uri => {
-    setOptions(['Please Wait...']);
+    setOptions([{
+      value: '',
+      label: 'Please Wait...'
+    }]);
     renderOptions();
     return fetch(uri).then(res => res.json())
       .then(data => {
-        return data.content;
+        return data;
       });
   };
 
@@ -78,9 +87,8 @@ const Widget = () => {
     return opt;
   };
 
-  const handleOnChange = e => {
-    const { value } = e.target;
-    setSelectedValue(value);
+  const handleOnChange = values => {
+    setSelectedValue(values);
   };
 
   const handleOptionArray = data => {
@@ -161,7 +169,7 @@ const Widget = () => {
         setOptions(selectionArray);
       });
     } else {
-      const selectionArray = ['Please Select'];
+      const selectionArray = [];
       setOptions(selectionArray);
     }
   };
@@ -226,25 +234,22 @@ const Widget = () => {
   };
 
   const onReady = () => {
-    console.log('on ready');
-    JFCustomWidget.subscribe('ready', details => {
-      console.log('subscribe ready');
-      const settings = JFCustomWidget.getWidgetSettings();
-      const u = JFCustomWidget.getWidgetSetting('URL');
-      setUrl(u);
-      setWidgetSettings(settings);
-      setSelectStyle({
-        backgroundColor: details.background,
-        width: details.width || '%100',
-        height: details.height || '%100'
-      });
-      // if (widgetSettings.defaultValue !== '') {
-      // setSelectedValue(widgetSettings.Default);
-      // }
+    // FIXME: open it
+    // JFCustomWidget.subscribe('ready', details => {
+    const details = {
+      background: 'lightblue'
+    };
+    const settings = JFCustomWidget.getWidgetSettings();
+    // const u = JFCustomWidget.getWidgetSetting('URL');
+    const u = OPTIONS_API;
+    setUrl(u);
+    setWidgetSettings(settings);
+    setSelectStyle({
+      backgroundColor: details.background,
+      width: details.width || '%100',
+      height: details.height || '%100'
     });
-
-    // onWidgetSubmit();
-    // onWidgetPopulate();
+    // });
   };
 
   useEffect(() => {
@@ -253,13 +258,11 @@ const Widget = () => {
     }
 
     document.getElementById('JFCustomWidgetScript').addEventListener('load', () => {
-      console.log('load');
       onReady();
       onWidgetPopulate();
       onWidgetSubmit();
     });
   }, []);
-
 
   useEffect(() => {
     if (url !== undefined) {
@@ -269,22 +272,10 @@ const Widget = () => {
 
   useEffect(() => {
     if (hasLoaded === true) {
-      JFCustomWidget.sendData({ value: selectedValue });
+      console.log('selectedValue', selectedValue);
+      JFCustomWidget.sendData({ value: selectedValue?.value });
     }
   }, [selectedValue]);
-
-  const options2 = [
-    {name: 'Swedish', value: 'sv'},
-    {name: 'English', value: 'en'},
-    {name: 'Swedish', value: 'sv2'},
-    {name: 'English', value: 'en3'},
-    {name: 'Swedish', value: 'sv5'},
-    {name: 'English', value: 'e6n'},
-    {name: 'Swedish', value: 'sv7'},
-    {name: 'English', value: 'e8n'},
-    {name: 'English', value: 'e812n'},
-    {name: 'English', value: 'e8n5'},
-];
 
   return (
     <div id="widget" className="flex-row">
@@ -292,8 +283,17 @@ const Widget = () => {
         <span id="labelText">{widgetSettings.QuestionLabel}</span>
       </div>
       <div>
-      <SelectSearch search={true} options={options2} value="sv" name="language" placeholder="Choose your language" />
-
+        <Select
+          options={options}
+          onChange={handleOnChange}
+          value={selectedValue}
+          onMenuOpen={() => {
+            JFCustomWidget.requestFrameResize({ height: 500 })
+          }}
+          onMenuClose={() => {
+            JFCustomWidget.requestFrameResize({ height: 80 })
+          }}
+        />
       </div>
       <div className="mt-1">
         <small className='color-gray-200'>{widgetSettings.SubLabel}</small>
