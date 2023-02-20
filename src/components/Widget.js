@@ -224,7 +224,7 @@ const Widget = () => {
   };
 
   const onReady = () => {
-    console.log('on ready');
+    console.log('on ready cag');
     JFCustomWidget.subscribe('ready', details => {
       console.log('subscribe ready');
       const settings = JFCustomWidget.getWidgetSettings();
@@ -270,6 +270,8 @@ const Widget = () => {
       JFCustomWidget.sendData({ value: selectedValue });
     }
   }, [selectedValue]);
+
+  console.log('widgeetetts');
 
   return (
     <div id="widget" className="flex-row">
