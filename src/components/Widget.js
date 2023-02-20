@@ -201,6 +201,8 @@ const Widget = () => {
     });
   };
 
+  console.log('cag1');
+
   const setUrlParams = value => {
     var parameters = value;
     var uri = handleParameters(parameters);
@@ -283,8 +285,8 @@ const Widget = () => {
           value={selectedValue}
         /> */}
         <select
-          style={selectStyle}
-          onChange={e => handleOnChange(e)}
+          // style={selectStyle}
+          // onChange={e => handleOnChange(e)}
           value={selectedValue ?? widgetSettings.Default}
           id="url-dropdown-select"
           className="hover:outline-blue-200 hover:outline-opacity-20 radius-md
