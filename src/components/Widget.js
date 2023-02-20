@@ -284,16 +284,7 @@ const Widget = () => {
           onChange={handleOnChange}
           value={selectedValue}
         /> */}
-        <select
-          style={selectStyle}
-          onChange={e => handleOnChange(e)}
-          // value={selectedValue ?? widgetSettings.Default}
-          id="url-dropdown-select"
-          className="hover:outline-blue-200 hover:outline-opacity-20 radius-md
-      border outline-4 outline-transparent border-gray-75 hover:border-blue-600 hover:border"
-        >
-          {renderOptions()}
-        </select>
+        cag
       </div>
       <div className="mt-1">
         <small className='color-gray-200'>{widgetSettings.SubLabel}</small>
