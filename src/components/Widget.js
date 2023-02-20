@@ -275,14 +275,7 @@ const Widget = () => {
 
   const options2 = [
     {name: 'Swedish', value: 'sv'},
-    {name: 'English', value: 'en'},
-    {
-        type: 'group',
-        name: 'Group name',
-        items: [
-            {name: 'Spanish', value: 'es'},
-        ]
-    },
+    {name: 'English', value: 'en'}
 ];
 
   return (
