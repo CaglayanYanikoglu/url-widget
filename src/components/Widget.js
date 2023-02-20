@@ -279,11 +279,11 @@ const Widget = () => {
         <span id="labelText">{widgetSettings.QuestionLabel}</span>
       </div>
       <div>
-        {/* <Select
+        <Select
           options={[]}
           onChange={handleOnChange}
-          value={selectedValue}
-        /> */}
+          // value={selectedValue}
+        />
         cag
       </div>
       <div className="mt-1">
