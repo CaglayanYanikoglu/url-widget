@@ -222,6 +222,8 @@ const Widget = () => {
     });
   };
 
+  console.log('CAGLAYAN TEST');
+
   const onReady = () => {
     JFCustomWidget.subscribe('ready', details => {
       console.log('subscribe ready');
