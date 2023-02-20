@@ -31,8 +31,6 @@ const Widget = () => {
     _setUrl(data);
   };
 
-  console.log('copyWidget');
-
   const setSelectedValue = data => {
     selectedRef.current = data;
     _setSelectedValue(data);
@@ -287,11 +285,11 @@ const Widget = () => {
           options={options}
           onChange={handleOnChange}
           value={selectedValue}
-          onMenuOpen={() => {
+          /* onMenuOpen={() => {
             JFCustomWidget.requestFrameResize({ height: 500 })
-          }}
+          }} */
           onMenuClose={() => {
-            JFCustomWidget.requestFrameResize({ height: 80 })
+            JFCustomWidget.requestFrameResize({ height: 40 })
           }}
         />
       </div>
