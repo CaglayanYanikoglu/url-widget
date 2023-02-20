@@ -279,11 +279,14 @@ const Widget = () => {
         <span id="labelText">{widgetSettings.QuestionLabel}</span>
       </div>
       <div>
-        <select class="js-example-basic-single" name="state">
-          <option value="AL">Alabama</option>
-          <option value="WY">Wyoming</option>
-        </select>
-        cag
+        <Select
+          options={[]}
+          onChange={() => {}}
+          name="agent"
+          placeholder="Agent Name"
+          menuPortalTarget={document.body}
+          styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
+        />
       </div>
       <div className="mt-1">
         <small className='color-gray-200'>{widgetSettings.SubLabel}</small>
