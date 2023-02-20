@@ -4,6 +4,8 @@ import {
   React, useState, useEffect, useRef
 } from 'react';
 
+console.log('widget works');
+
 const Widget = () => {
   const [widgetSettings, _setWidgetSettings] = useState({});
   const [url, _setUrl] = useState('');

@@ -31,6 +31,8 @@ const Widget = () => {
     _setUrl(data);
   };
 
+  console.log('copyWidget');
+
   const setSelectedValue = data => {
     selectedRef.current = data;
     _setSelectedValue(data);
